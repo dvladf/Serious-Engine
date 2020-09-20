@@ -1054,13 +1054,14 @@ functions:
   /* Get fog, return FALSE for none. */
   BOOL GetFog(INDEX iFog, class CFogParameters &fpFog)
   {
+    if (m_penFog0 == NULL) {
+      return FALSE;
+    }
     INDEX ctFogMarkers = &m_penFog4-&m_penFog0+1;
     if (iFog<ctFogMarkers){
       CFogMarker *pfm = (CFogMarker *)&*(&m_penFog0)[iFog];
-      if (pfm != NULL) {
-        pfm->GetFog(fpFog);
-        return TRUE;
-      }
+      pfm->GetFog(fpFog);
+      return TRUE;
     }
     return FALSE;
   }
@@ -1085,13 +1086,15 @@ functions:
   /* Get haze, return FALSE for none. */
   BOOL GetHaze(INDEX iHaze, class CHazeParameters &hpHaze, FLOAT3D &vViewDir)
   {
+    if (m_penHaze0 == NULL) {
+      return FALSE;
+    }
+
     INDEX ctHazeMarkers = &m_penHaze4-&m_penHaze0+1;
     if (iHaze<ctHazeMarkers){
       CHazeMarker *phm = (CHazeMarker *)&*(&m_penHaze0)[iHaze];
-      if (phm != NULL) {
-        phm->GetHaze(hpHaze, vViewDir);
-        return TRUE;
-      }
+      phm->GetHaze(hpHaze, vViewDir);
+      return TRUE;
     }
     return FALSE;
   }
@@ -1140,14 +1143,15 @@ functions:
       mpMirror.mp_ulFlags = 0;
       return TRUE;
     }
+    if (m_penMirror0 == NULL) {
+      return FALSE;
+    }
     iMirror-=9;
     INDEX ctMirrorMarkers = &m_penMirror4-&m_penMirror0+1;
     if (iMirror<ctMirrorMarkers){
       CMirrorMarker *pmm = (CMirrorMarker *)&*(&m_penMirror0)[iMirror];
-      if (pmm != NULL) {
-        pmm->GetMirror(mpMirror);
-        return TRUE;
-      }
+      pmm->GetMirror(mpMirror);
+      return TRUE;
     }
     return FALSE;
   }
@@ -1185,12 +1189,14 @@ functions:
   /* Get gradient, return FALSE for none. */
   BOOL GetGradient(INDEX iGradient, class CGradientParameters &fpGradient)
   {
+    if (m_penGradient0 == NULL) {
+      return FALSE;
+    }
+
     INDEX ctGradientMarkers = &m_penGradient19-&m_penGradient0+1;
     if ( (iGradient<ctGradientMarkers) && (iGradient>0) ){
       CGradientMarker *pgm = (CGradientMarker *)&*(&m_penGradient0)[iGradient-1];
-      if (pgm != NULL) {
-        return pgm->GetGradient(0, fpGradient);
-      }
+      return pgm->GetGradient(0, fpGradient);
     }
     return FALSE;
   }
