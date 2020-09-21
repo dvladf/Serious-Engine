@@ -28,6 +28,7 @@
 *.app
 !Bison.exe
 !Flex.exe
+Bin/ssam-tfe
 
 # CMake Build dirs (temp)
 Build/
@@ -93,3 +94,7 @@ Sources/SeriousSkaStudio/Scanner.cpp
 *.swp
 *.swo
 
+# game data files
+*.gro
+Levels/*
+SaveGame/*
